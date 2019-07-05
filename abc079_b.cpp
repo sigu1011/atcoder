@@ -9,13 +9,18 @@ int main() {
     int64_t L1 = 1;
     int64_t LN = 0;
 
-    for (int i = 0; i > N; i++) {
-        L0 + L1 = LN;
-        if (N % 2 == 0) {
-            L1 = LN;
-        } else {
+    if(N == 1) {
+        cout << L1 << endl;
+        return 0;
+    }
+    for (int i = 1; i < N; i++) {
+        LN = L0 + L1;
+        if (i % 2 != 0) {
             L0 = LN;
+        } else {
+            L1 = LN;
         }
     }
     cout << LN << endl;
+    return 0;
 }
