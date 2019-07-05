@@ -11,13 +11,12 @@ int main() {
         string name;
         int score;
         cin >> name >> score;
-        // sort用
-        p.push_back(make_pair(name, score))
+        // sort用(secondは降順)
+        p.push_back(make_pair(name, -score));
         // 入力順序を逆引きするためのmap
-        d[name + to_string(score)] = i;
+        d[name + to_string(-score)] = i + 1;
     }
     sort(p.begin(), p.end());
-
     for (pair<string, int> x : p) {
         string name;
         int score;
