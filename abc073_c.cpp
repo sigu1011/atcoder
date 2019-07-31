@@ -1,22 +1,24 @@
 #include <bits/stdc++.h>
 using namespace std;
+int N, ptr, res;
+int A[100000];
 
 int main() {
-  int N;
   scanf("%d", &N);
+  for (int i = 0; i < N; i++) scanf("%d", &A[i]);
 
-  set<int> s;
-  for (int i = 0; i < N; i++) {
-    int A;
-    scanf("%d", &A);
-    auto itr = s.find(A);
-    if (itr != s.end()) {
-      s.erase(A);
-    } else {
-      s.insert(A);
+  sort(A, A + N);
+
+  while (ptr < N) {
+    int cc = A[ptr], f = 0;
+    // 一致するところのみ、数え上げる
+    while (ptr < N && A[ptr] == cc) {
+      f++;
+      ptr++;
     }
+    res += f % 2;
   }
 
-  printf("%lu", s.size());
+  printf("%d\n", res);
   return 0;
 }
