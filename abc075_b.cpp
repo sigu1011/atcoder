@@ -4,43 +4,36 @@ using namespace std;
 int main() {
   int H, W;
   scanf("%d%d", &H, &W);
-  vector<vector<char>> grid(H + 2, vector<char>(W + 2, '0'));
-  for (int i = 0; i < H + 2; i++) {
-    for (int j = 0; j < W + 2; j++) {
-      if (i == 0 || i == H + 1 || j == 0 || j == W + 1) grid.at(i).at(j) = 'w';
-    }
+
+  string grid[50];
+  for (int i = 0; i < H; i++) {
+    cin >> grid[i];
   }
+  // 8方向探索時のx, yの変化量を定義しておく
+  const int dx[8] = {1, 0, -1, 0, 1, -1, -1, 1};
+  const int dy[8] = {0, 1, 0, -1, 1, 1, -1, -1};
 
-  for (int i = 1; i <= H; i++) {
-    for (int j = 1; j <= W; j++) {
-      char input;
-      cin >> input;
-
-      if (input == '#') {
-        for (int y = i - 1; y <= i + 1; y++) {
-          for (int x = j - 1; x <= j + 1; x++) {
-            if (grid.at(y).at(x) == '#') {
-              continue;
-            }
-
-            if (y == i && x == j) {
-              grid.at(y).at(x) = '#';
-            } else if (grid.at(y).at(x) == 'w') {
-              continue;
-            } else {
-              grid.at(y).at(x)++;
-            }
-          }
-        }
+  for (int i = 0; i < H; i++) {
+    for (int j = 0; j < W; j++) {
+      if (grid[i][j] == '#') {
+        continue;
       }
+
+      int num = 0;
+      for (int d = 0; d < 8; d++) {
+        const int next_i = i + dy[d];
+        const int next_j = j + dx[d];
+        // ボード外は探索しない
+        if (next_i < 0 or H <= next_i) continue;
+        if (next_j < 0 or W <= next_j) continue;
+        if (grid[next_i][next_j] == '#') num++;
+      }
+      grid[i][j] = char(num + '0');
     }
   }
 
-  for (int i = 1; i <= H; i++) {
-    for (int j = 1; j <= W; j++) {
-      cout << grid.at(i).at(j);
-    }
-    cout << endl;
+  for (int i = 0; i < H; i++) {
+    cout << grid[i] << endl;
   }
 
   return 0;
