@@ -5,16 +5,13 @@ int main() {
   int A, B, C;
   scanf("%d%d%d", &A, &B, &C);
 
-  int f = A % B;
-  int x = A;
-  while (x % B != C) {
-    x += A;
-    if (x % B == f) {
-      printf("NO");
+  for (int i = 1; i <= B; i++) {
+    if (A * i % B == C) {
+      printf("YES");
       return 0;
     }
   }
 
-  printf("YES");
+  printf("NO");
   return 0;
 }
