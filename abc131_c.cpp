@@ -22,17 +22,18 @@ ll lcm(ll a, ll b) {
 }
 
 int main() {
-  ll A, B;
-  scanf("%lld%lld", &A, &B);
-  ll C, D;
-  scanf("%lld%lld", &C, &D);
+  ll A, B, C, D;
+  scanf("%lld%lld%lld%lld", &A, &B, &C, &D);
 
-  ll ans = B - A + 1;
-  ans += ((B / C) - ((A - 1) / C));
-  ans += ((B / D) - ((A - 1) / D));
-  long long LCM = lcm(C, D);
-  ans -= ((B / LCM) - ((A - 1) / LCM));
+  ll LCM = lcm(C, D);
+  // CでもDでも割ることができる集合
+  ll q = 0;
 
-  printf("%lld", ans);
+  ll u = B - A + 1;
+  q += ((B / C) + (B / D) - (B / LCM));
+  q -= (((A - 1) / C) + ((A - 1) / D) - ((A - 1) / LCM));
+
+  // 全体集合[A, B]とqの差集合が解答
+  printf("%lld", u - q);
   return 0;
 }
