@@ -10,18 +10,29 @@ int main() {
   int ans = 0;
   for (int i = 1; i < N; i++) {
     int count = 0;
-    string X = S.substr(0, i);
-    string Y = S.substr(i, N - i);
 
-    set<char> X_set, Y_set;
-    for (char c : X) X_set.insert(c);
-    for (char c : Y) Y_set.insert(c);
+    for (char c = 'a'; c <= 'z'; c++) {
+      bool left = false;
+      bool right = false;
 
-    for (char x : X_set) {
-      if (Y_set.count(x) > 0) count++;
+      for (int j = 0; j < i; j++) {
+        if (S[j] == c) {
+          left = true;
+          break;
+        }
+      }
+
+      for (int j = i; j < N; j++) {
+        if (S[j] == c) {
+          right = true;
+          break;
+        }
+      }
+
+      if (left && right) count++;
     }
 
-    ans = max(ans, count);
+    if (ans < count) ans = count;
   }
 
   printf("%d", ans);
