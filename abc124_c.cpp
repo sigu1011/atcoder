@@ -2,29 +2,21 @@
 using namespace std;
 
 int main() {
-  string S;
-  cin >> S;
+  char S[100010];
+  scanf("%s", S);
+  int len = strlen(S);
 
-  string S1(S.size(), '0');
-  string S2(S.size(), '1');
-  for (int i = 1; i < S.size(); i += 2) {
-    S1.at(i) += 1;
-    S2.at(i) -= 1;
-  }
-
-  int ans = 0;
-  int ans1 = 0;
-  int ans2 = 0;
-  for (int i = 0; i < S.size(); i++) {
-    if (S.at(i) != S1.at(i)) {
+  int ans1 = 0, ans2 = 0;
+  for (int i = 0; i < len; i++) {
+    if (i % 2 == S[i] - '0') {
+      // 黒色スタート時の塗り替え数を検証
       ans1++;
-    }
-    if (S.at(i) != S2.at(i)) {
+    } else {
+      // 白色スタート時の塗り替え数を検証
       ans2++;
     }
   }
-  ans = min(ans1, ans2);
 
-  printf("%d", ans);
+  printf("%d", min(ans1, ans2));
   return 0;
 }
