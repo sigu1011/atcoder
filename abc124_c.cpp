@@ -15,7 +15,7 @@ int main() {
   int ans = 0;
   int ans1 = 0;
   int ans2 = 0;
-  for (int i = 0; S.size(); i++) {
+  for (int i = 0; i < S.size(); i++) {
     if (S.at(i) != S1.at(i)) {
       ans1++;
     }
