@@ -1,14 +1,18 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+const int NUM = 3;
+
 int main() {
-  int A, B, C;
-  scanf("%d%d%d", &A, &B, &C);
+  int b[10] = {0};
 
-  vector<int> s{A, B, C};
-  sort(s.begin(), s.end());
+  for (int i = 0; i < NUM; i++) {
+    int length = 0;
+    scanf("%d", &length);
+    b[length]++;
+  }
 
-  if (s.at(0) == 5 && s.at(1) == 5 && s.at(2) == 7) {
+  if (b[5] == 2 && b[7] == 1) {
     printf("YES");
   } else {
     printf("NO");
