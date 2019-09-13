@@ -5,18 +5,15 @@ int main() {
   int N;
   scanf("%d", &N);
 
-  vector<int> a(N, 0);
+  int MAX = -1;
+  int MIN = 1001;
   for (int i = 0; i < N; i++) {
-    scanf("%d", &a.at(i));
+    int A = 0;
+    scanf("%d", &A);
+    if (MIN > A) MIN = A;
+    if (MAX < A) MAX = A;
   }
 
-  sort(a.begin(), a.end());
-
-  int ans = 0;
-  for (int i = 0; i < N - 1; i++) {
-    ans += a.at(i + 1) - a.at(i);
-  }
-
-  printf("%d", ans);
+  printf("%d", MAX - MIN);
   return 0;
 }
