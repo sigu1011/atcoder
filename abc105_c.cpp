@@ -5,18 +5,16 @@ int main() {
   int N;
   scanf("%d", &N);
 
-  string ans = "";
+  string ans = (N != 0 ? "" : "0");
   while (N != 0) {
-    if (N % 2 != 0) {
-      N--;
+    if (N % -2 != 0) {
       ans = "1" + ans;
+      N -= 1;
     } else {
       ans = "0" + ans;
     }
     N /= -2;
   }
-
-  if (ans == "") ans = "0";
 
   printf("%s", ans.c_str());
   return 0;
