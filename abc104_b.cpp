@@ -5,24 +5,24 @@ int main() {
   string S;
   cin >> S;
 
-  if (S.front() == 'A') {
-    int num_C = 0;
-    for (int i = 2; i <= S.length() - 2; i++) {
-      if (S.at(i) == 'C') num_C++;
-    }
-
-    if (num_C == 1) {
-      int num_lowercase = 0;
-      for (auto s : S) {
-        if ('a' <= s && s <= 'z') num_lowercase++;
+  int L = S.size();
+  string ans = "AC";
+  if (S.front() != 'A') {
+    ans = "WA";
+  }
+  int cnt = 0;
+  for (int i = 1; i < L; ++i) {
+    if (isupper(S.at(i))) {
+      if (i == 1 || i == L - 1 || S.at(i) != 'C') {
+        ans = "WA";
       }
-      if (num_lowercase == S.length() - 2) {
-        printf("AC");
-        return 0;
-      }
+      cnt++;
     }
   }
+  if (cnt != 1) {
+    ans = "WA";
+  }
 
-  printf("WA");
+  printf("%s", ans.c_str());
   return 0;
 }
