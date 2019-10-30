@@ -12,11 +12,8 @@ int main() {
 
   int ans = X;
   for (int i = 0; i < N; i++) {
-    int days = 1;
-    while (days <= D) {
-      ans++;
-      days += A.at(i);
-    }
+    int eaten_cookies = (D - 1) / A.at(i) + 1;
+    ans += eaten_cookies;
   }
 
   printf("%d", ans);
