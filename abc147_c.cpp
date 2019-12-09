@@ -25,13 +25,7 @@ int main() {
       if ((bits >> i) & 1) {
         // シミュレートしている状態と各正直者の証言が整合しているか確認
         for (int j = 0; j < A[i]; j++) {
-          if ((bits >> (x[i][j] - 1)) & 1) {
-            // 正直者と仮定しているが、不親切と証言している場合は不整合
-            if (y[i][j] == 0) is_consistent = false;
-          } else {
-            // 不親切と仮定しているが、正直者と証言している場合は不整合
-            if (y[i][j] == 1) is_consistent = false;
-          }
+          if ((bits >> (x[i][j] - 1)) & 1 ^ y[i][j]) is_consistent = false;
         }
       }
 
