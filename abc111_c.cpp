@@ -1,55 +1,50 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-bool compare(const pair<int, int> &a, const pair<int, int> &b) {
-  if (a.second != b.second) return a.second > b.second;
-  return a.first < b.first;
-}
+int cnt_odd[100010];
+int cnt_even[100010];
 
 int main() {
   int n;
   scanf("%d", &n);
 
-  map<int, int> om;
-  map<int, int> em;
-  for (int i = 0; i < n / 2; i++) {
-    int o, e;
-    scanf("%d%d", &o, &e);
-    om[o]++;
-    em[e]++;
-  }
-
-  if (om.size() == 1 && em.size() == 1) {
-    int key1, key2;
-    for (auto e : om) key1 = e.first;
-    for (auto e : em) key2 = e.first;
-    if (key1 == key2) {
-      printf("%d", n / 2);
+  for (int i = 1; i <= n; i++) {
+    int v;
+    cin >> v;
+    if (i % 2 == 1) {
+      cnt_odd[v]++;
     } else {
-      printf("0");
+      cnt_even[v]++;
     }
-    return 0;
   }
 
-  vector<pair<int, int>> ov;
-  for (auto e : om) ov.push_back(make_pair(e.first, e.second));
-  vector<pair<int, int>> ev;
-  for (auto e : em) ev.push_back(make_pair(e.first, e.second));
-  sort(ov.begin(), ov.end(), compare);
-  sort(ev.begin(), ev.end(), compare);
+  // 奇数番目の最頻値、2番目に多い値
+  int O1 = 0, O2 = 0;
+  // 偶数番目の最頻値、2番目に多い値
+  int E1 = 0, E2 = 0;
+  for (int i = 1; i <= 100000; i++) {
+    if (cnt_odd[O1] < cnt_odd[i]) {
+      O2 = O1;
+      O1 = i;
+    } else if (cnt_odd[O2] < cnt_odd[i]) {
+      O2 = i;
+    }
 
-  int ans = 0;
-  int O1_key = ov.at(0).first;
-  int O1 = ov.at(0).second;
-  int E1_key = ev.at(0).first;
-  int E1 = ev.at(0).second;
-  ans = n - O1 - E1;
-  if (O1_key == E1_key) {
-    int O2 = ov.at(1).second;
-    int E2 = ev.at(1).second;
-    ans = min((n - O1 - E2), (n - O2 - E1));
+    if (cnt_even[E1] < cnt_even[i]) {
+      E2 = E1;
+      E1 = i;
+    } else if (cnt_even[E2] < cnt_even[i]) {
+      E2 = i;
+    }
   }
 
-  printf("%d", ans);
+  int ans1 = n - cnt_odd[O1] - cnt_even[E1];
+  int ans2 = n - cnt_odd[O1] - cnt_even[E2];
+  int ans3 = n - cnt_odd[O2] - cnt_even[E1];
+  if (O1 != E1) {
+    printf("%d", ans1);
+  } else {
+    printf("%d", min(ans2, ans3));
+  }
   return 0;
 }
