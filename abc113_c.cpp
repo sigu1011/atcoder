@@ -2,36 +2,33 @@
 using namespace std;
 
 int main() {
+  cin.tie(nullptr);
+  ios::sync_with_stdio(false);
+
   int N, M;
-  scanf("%d%d", &N, &M);
+  cin >> N >> M;
 
-  vector<int> num(N, 1);
-
-  vector<pair<int, int>> city(M, make_pair(0, 0));
+  vector<tuple<int, int, int>> pref_year_id(M);
   for (int i = 0; i < M; i++) {
-    int P = 0, Y = 0;
-    scanf("%d%d", &P, &Y);
-    city.at(i) = make_pair(P, Y);
+    int pid, year;
+    cin >> pid >> year;
+    pref_year_id.at(i) = make_tuple(pid, year, i);
   }
-  vector<pair<int, int>> city_(city.size());
-  copy(city.begin(), city.end(), city_.begin());
-  sort(city_.begin(), city_.end());
 
-  map<pair<int, int>, string> dic;
-  for (int i = 0; i < M; i++) {
-    char id_first[7];
-    char id_second[7];
-    string id;
-    sprintf(id_first, "%06d", city_.at(i).first);
-    sprintf(id_second, "%06d", num.at(city_.at(i).first - 1));
-    id += id_first;
-    id += id_second;
-    dic[city_.at(i)] = id;
-    num.at(city_.at(i).first - 1)++;
+  sort(pref_year_id.begin(), pref_year_id.end());
+
+  vector<int> pref_id(M), city_id(M), cnt(N + 1);
+  for (auto& pyi : pref_year_id) {
+    int pid, id;
+    tie(pid, ignore, id) = pyi;
+    pref_id.at(id) = pid;
+    cnt[pid]++;
+    city_id.at(id) = cnt[pid];
   }
 
   for (int i = 0; i < M; i++) {
-    printf("%s\n", dic[city.at(i)].c_str());
+    cout << setfill('0') << setw(6) << pref_id.at(i);
+    cout << setfill('0') << setw(6) << city_id.at(i) << endl;
   }
   return 0;
 }
