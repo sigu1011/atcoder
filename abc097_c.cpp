@@ -9,7 +9,7 @@ int main() {
 
   vector<string> ans;
   for (int i = 0; i < s.length(); i++) {
-    for (int j = 1; j <= s.length() - i; j++) {
+    for (int j = 1; j <= min((int)s.length() - i, K); j++) {
       ans.push_back(s.substr(i, j));
     }
   }
