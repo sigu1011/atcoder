@@ -7,27 +7,16 @@ int main() {
   int K;
   scanf("%d", &K);
 
-  set<string> se;
-  int len = s.length();
-  for (int bit = 0; bit < (1 << len); bit++) {
-    string st;
-    for (int i = 0; i < len; i++) {
-      if ((bit & (1 << i))) {
-        st.push_back(s.at(i));
-      }
-    }
-
-    if (se.count(s) == 0) {
-      se.insert(s);
+  vector<string> ans;
+  for (int i = 0; i < s.length(); i++) {
+    for (int j = 1; j <= s.length() - i; j++) {
+      ans.push_back(s.substr(i, j));
     }
   }
 
-  int i = 1;
-  for (auto s : se) {
-    if (i == K) {
-      printf("%s", s.c_str());
-      return 0;
-    }
-    i++;
-  }
+  sort(ans.begin(), ans.end());
+  ans.erase(unique(ans.begin(), ans.end()), ans.end());
+
+  printf("%s", ans.at(K - 1).c_str());
+  return 0;
 }
