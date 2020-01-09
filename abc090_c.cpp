@@ -4,12 +4,12 @@ using namespace std;
 int main() {
   long long N, M;
   cin >> N >> M;
-  if (N == 1LL && M == 1LL) {
+  if (N == 1 && M == 1) {
     printf("1");
-  } else if (N == 1LL || M == 1LL) {
-    printf("%lld", N * M - 2LL);
+  } else if (N == 1 || M == 1) {
+    printf("%lld", N * M - 2);
   } else {
-    printf("%lld", N * M - 2LL * (N + M - 2LL));
+    printf("%lld", (N - 2) * (M - 2));
   }
   return 0;
 }
